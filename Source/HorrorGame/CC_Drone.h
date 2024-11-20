@@ -4,7 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "GameFramework/Character.h"
 #include "CC_Drone.generated.h"
+
+
+class UInputComponent;
+class UCameraComponent;
+class UInputAction;
+class UInputMappingContext;
+struct FInputActionValue;
 
 UCLASS()
 class HORRORGAME_API ACC_Drone : public APawn
@@ -25,6 +33,14 @@ protected:
 	UFUNCTION()
 	void Look(const FInputActionValue& Value);
 
+	UPROPERTY(VisibleAnywhere)
+	UCapsuleComponent* CapsuleComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* CameraComponent;
+
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -35,7 +51,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* EscapeAction;
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+	void Escape(const FInputActionValue& Value);
 
 };

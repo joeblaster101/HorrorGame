@@ -39,11 +39,18 @@ public:
 protected:
 	virtual void BeginPlay();
 
+	virtual void Tick(float DeltaSeconds);
+
+
+
 public:
 		
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* Interact;
 
 protected:
 	/** Called for movement input */
@@ -51,6 +58,10 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	void Interacte(const FInputActionValue& Value);
+
+
 
 protected:
 	// APawn interface
@@ -61,7 +72,14 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
-	//UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable)
+	void WhatInFront();
+
+	UFUNCTION(BlueprintCallable)
+	bool Interacte();
+
+	UPROPERTY(BlueprintReadWrite)
+	UGameInstance* GameInstanceRef;
 	
 };
 

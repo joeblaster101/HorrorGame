@@ -9,6 +9,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "CC_GameInstance.h"
+#include "HorrorGamePlayerController.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -31,6 +33,15 @@ void AHorrorGameCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
+	GameInstance->PlayerRef = this;
+
+}
+
+void AHorrorGameCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -51,6 +62,10 @@ void AHorrorGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AHorrorGameCharacter::Look);
 
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AHorrorGameCharacter::Look);
+
+		EnhancedInputComponent->BindAction(Interact, ETriggerEvent::Triggered, this, &AHorrorGameCharacter::Interacte);
+
+
 	}
 	else
 	{
@@ -58,6 +73,52 @@ void AHorrorGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 	}
 }
 
+void AHorrorGameCharacter::WhatInFront()
+{
+	if (Interacte())
+	{
+		FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
+		RV_TraceParams.bTraceComplex = true;
+		RV_TraceParams.bReturnPhysicalMaterial = false;
+
+		FHitResult Hit(ForceInit);
+		FVector3d Start = GetFirstPersonCameraComponent()->GetComponentLocation();
+		FVector3d End = Start + GetFirstPersonCameraComponent()->GetComponentLocation() * 100.0f;
+
+		GetWorld()->LineTraceSingleByChannel(
+			Hit,		//result
+			Start,	//start
+			End, //end
+			ECC_Pawn, //collision channel
+			RV_TraceParams
+		);
+
+		if (Hit.GetActor()->ActorHasTag("console"))
+		{
+			
+		}
+	}
+}
+
+bool AHorrorGameCharacter::Interacte()
+{
+	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
+	RV_TraceParams.bTraceComplex = true;
+	RV_TraceParams.bReturnPhysicalMaterial = false;
+
+	FHitResult Hit(ForceInit);
+	FVector3d Start = GetFirstPersonCameraComponent()->GetComponentLocation();
+	FVector3d End = Start + GetFirstPersonCameraComponent()->GetComponentLocation() * 100.0f;
+	
+	GetWorld()->LineTraceSingleByChannel(
+		Hit,		//resultd
+		Start,	//start
+		End, //end
+		ECC_Pawn, //collision channel
+		RV_TraceParams
+	);
+	return Hit.bBlockingHit;
+}
 
 void AHorrorGameCharacter::Move(const FInputActionValue& Value)
 {
@@ -83,5 +144,10 @@ void AHorrorGameCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AHorrorGameCharacter::Interacte(const FInputActionValue& Value)
+{
+	WhatInFront();
 }
 
