@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "HorrorGamePlayerController.h"
 #include "Logging/LogMacros.h"
 #include "HorrorGameCharacter.generated.h"
 
@@ -41,8 +42,6 @@ protected:
 
 	virtual void Tick(float DeltaSeconds);
 
-
-
 public:
 		
 	/** Look Input Action */
@@ -61,8 +60,6 @@ protected:
 
 	void Interacte(const FInputActionValue& Value);
 
-
-
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
@@ -76,10 +73,9 @@ public:
 	void WhatInFront();
 
 	UFUNCTION(BlueprintCallable)
-	bool Interacte();
+	FHitResult Interacte();
 
 	UPROPERTY(BlueprintReadWrite)
 	UGameInstance* GameInstanceRef;
 	
 };
-

@@ -65,7 +65,7 @@ void ACC_Drone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 	else
 	{
-		printf("shits fuck  input system!!!");
+		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' you fuck it no inputs you labotimite"), *GetNameSafe(this));
 	}
 }
 
@@ -81,6 +81,7 @@ void ACC_Drone::Move(const FInputActionValue& Value)
 
 	if (Controller != nullptr)
 	{
+		UE_LOG(LogTemplateCharacter, Error, TEXT("femboys"), *GetNameSafe(this));
 		// add movement 
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);

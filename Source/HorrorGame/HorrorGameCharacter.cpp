@@ -41,7 +41,10 @@ void AHorrorGameCharacter::BeginPlay()
 void AHorrorGameCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	
+	if (!Controller)
+	{
+		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' you fuck it you labotimite"), *GetNameSafe(this));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -75,33 +78,23 @@ void AHorrorGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 void AHorrorGameCharacter::WhatInFront()
 {
-	if (Interacte())
+	UE_LOG(LogTemplateCharacter, Error, TEXT("Femboys"), *GetNameSafe(this));
+	FHitResult Hit = Interacte();
+	bool bDidHit = Hit.bBlockingHit;
+
+	if (bDidHit)
 	{
-		FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
-		RV_TraceParams.bTraceComplex = true;
-		RV_TraceParams.bReturnPhysicalMaterial = false;
-
-		FHitResult Hit(ForceInit);
-		FVector3d Start = GetFirstPersonCameraComponent()->GetComponentLocation();
-		FVector3d End = Start + GetFirstPersonCameraComponent()->GetComponentLocation() * 100.0f;
-
-		GetWorld()->LineTraceSingleByChannel(
-			Hit,		//result
-			Start,	//start
-			End, //end
-			ECC_Pawn, //collision channel
-			RV_TraceParams
-		);
-
 		if (Hit.GetActor()->ActorHasTag("console"))
 		{
-			
+			AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
+			pcPlayerControllerRef->PossessPlayer();
 		}
 	}
 }
-
-bool AHorrorGameCharacter::Interacte()
+FHitResult AHorrorGameCharacter::Interacte()
 {
+
+	UE_LOG(LogTemplateCharacter, Error, TEXT("twinks"), *GetNameSafe(this));
 	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
 	RV_TraceParams.bTraceComplex = true;
 	RV_TraceParams.bReturnPhysicalMaterial = false;
@@ -117,7 +110,17 @@ bool AHorrorGameCharacter::Interacte()
 		ECC_Pawn, //collision channel
 		RV_TraceParams
 	);
-	return Hit.bBlockingHit;
+
+	DrawDebugLine(
+		GetWorld() ,
+		Start,
+		End,
+		FColor::Red,
+		true, // Persistent
+		10000.0f, // Duration
+		1.0f // Thickness
+	);
+	return Hit;
 }
 
 void AHorrorGameCharacter::Move(const FInputActionValue& Value)

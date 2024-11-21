@@ -13,7 +13,5 @@ class AHorrorGameGameMode : public AGameModeBase
 
 public:
 	AHorrorGameGameMode();
+
 };
-
-
-

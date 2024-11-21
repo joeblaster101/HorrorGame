@@ -24,8 +24,6 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	// End Actor interface
-
 public:
 
 	UFUNCTION(BlueprintCallable)
