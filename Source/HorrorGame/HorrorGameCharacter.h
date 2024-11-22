@@ -49,7 +49,7 @@ public:
 	class UInputAction* LookAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* Interact;
+	class UInputAction* InteractAction;
 
 protected:
 	/** Called for movement input */
@@ -70,12 +70,14 @@ public:
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
 	UFUNCTION(BlueprintCallable)
-	void WhatInFront();
+	void IsConsoleAndPosess(FHitResult Hit);
 
 	UFUNCTION(BlueprintCallable)
-	FHitResult Interacte();
+	FHitResult InteractLineTrace();
 
 	UPROPERTY(BlueprintReadWrite)
 	UGameInstance* GameInstanceRef;
+
+
 	
 };

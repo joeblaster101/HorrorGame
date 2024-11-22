@@ -23,7 +23,9 @@ ACC_Drone::ACC_Drone()
 	if (CameraComponent)
 		CameraComponent->SetupAttachment(CapsuleComponent);
 
-;
+	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComonent"));
+	if (StaticMeshComponent)
+		StaticMeshComponent->SetupAttachment(CapsuleComponent);
 
 	PrimaryActorTick.bCanEverTick = true;
 }
@@ -41,7 +43,10 @@ void ACC_Drone::BeginPlay()
 void ACC_Drone::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (!Controller)
+	{
+		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' controller no there"), *GetNameSafe(this));
+	}
 }
 
 void ACC_Drone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -71,7 +76,8 @@ void ACC_Drone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ACC_Drone::Escape(const FInputActionValue& Value)
 {
-
+	AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
+	pcPlayerControllerRef->PossessPlayer();
 }
 
 void ACC_Drone::Move(const FInputActionValue& Value)

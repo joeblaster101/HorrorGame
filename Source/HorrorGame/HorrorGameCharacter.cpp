@@ -11,6 +11,7 @@
 #include "Engine/LocalPlayer.h"
 #include "CC_GameInstance.h"
 #include "HorrorGamePlayerController.h"
+#include"CC_Console.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -43,7 +44,7 @@ void AHorrorGameCharacter::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	if (!Controller)
 	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' you fuck it you labotimite"), *GetNameSafe(this));
+		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' controller no there"), *GetNameSafe(this));
 	}
 }
 
@@ -66,42 +67,43 @@ void AHorrorGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AHorrorGameCharacter::Look);
 
-		EnhancedInputComponent->BindAction(Interact, ETriggerEvent::Triggered, this, &AHorrorGameCharacter::Interacte);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &AHorrorGameCharacter::Interacte);
 
 
-	}
+	}	
 	else
-	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' you fuck it no inputs you labotimite"), *GetNameSafe(this));
-	}
+	
 }
 
-void AHorrorGameCharacter::WhatInFront()
+void AHorrorGameCharacter::IsConsoleAndPosess(FHitResult Hit)
 {
-	UE_LOG(LogTemplateCharacter, Error, TEXT("Femboys"), *GetNameSafe(this));
-	FHitResult Hit = Interacte();
+	UE_LOG(LogTemplateCharacter, Error, TEXT("front"), *GetNameSafe(this));
 	bool bDidHit = Hit.bBlockingHit;
 
 	if (bDidHit)
 	{
-		if (Hit.GetActor()->ActorHasTag("console"))
+		if (Hit.GetActor()->IsA(ACC_Console::StaticClass()))
 		{
-			AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
-			pcPlayerControllerRef->PossessPlayer();
+			if (Hit.GetActor()->ActorHasTag("console"))
+			{
+				AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
+				pcPlayerControllerRef->PossessDrone();
+			}
 		}
 	}
 }
-FHitResult AHorrorGameCharacter::Interacte()
+FHitResult AHorrorGameCharacter::InteractLineTrace()
 {
 
-	UE_LOG(LogTemplateCharacter, Error, TEXT("twinks"), *GetNameSafe(this));
+	UE_LOG(LogTemplateCharacter, Error, TEXT("yippee"), *GetNameSafe(this));
 	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
 	RV_TraceParams.bTraceComplex = true;
 	RV_TraceParams.bReturnPhysicalMaterial = false;
 
 	FHitResult Hit(ForceInit);
 	FVector3d Start = GetFirstPersonCameraComponent()->GetComponentLocation();
-	FVector3d End = Start + GetFirstPersonCameraComponent()->GetComponentLocation() * 100.0f;
+	FVector3d End = Start + GetFirstPersonCameraComponent()->GetForwardVector() * 100000.0f;
 	
 	GetWorld()->LineTraceSingleByChannel(
 		Hit,		//resultd
@@ -151,6 +153,6 @@ void AHorrorGameCharacter::Look(const FInputActionValue& Value)
 
 void AHorrorGameCharacter::Interacte(const FInputActionValue& Value)
 {
-	WhatInFront();
+
 }
 
