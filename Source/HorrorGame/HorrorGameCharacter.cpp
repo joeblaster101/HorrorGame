@@ -44,7 +44,7 @@ void AHorrorGameCharacter::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	if (!Controller)
 	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' controller no there"), *GetNameSafe(this));
+		//UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' controller no there"), *GetNameSafe(this));
 	}
 }
 
