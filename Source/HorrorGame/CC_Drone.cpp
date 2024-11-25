@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/PawnMovementComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
@@ -26,6 +27,9 @@ ACC_Drone::ACC_Drone()
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComonent"));
 	if (StaticMeshComponent)
 		StaticMeshComponent->SetupAttachment(CapsuleComponent);
+
+	//TODO FIX MOVEMENT COMONENET DOSEN@T ADD TO WORK AT ALL 
+	PawnMovementComponent = CreateDefaultSubobject<UPawnMovementComponent>(TEXT("MovementComonent"));
 
 	PrimaryActorTick.bCanEverTick = true;
 }
@@ -52,7 +56,7 @@ void ACC_Drone::Tick(float DeltaTime)
 void ACC_Drone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	
+
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		// upes
@@ -75,6 +79,12 @@ void ACC_Drone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 void ACC_Drone::Escape(const FInputActionValue& Value)
+{
+	AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
+	pcPlayerControllerRef->PossessPlayer();
+}
+
+void ACC_Drone::Escape2()
 {
 	AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
 	pcPlayerControllerRef->PossessPlayer();

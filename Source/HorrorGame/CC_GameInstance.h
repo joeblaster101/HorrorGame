@@ -8,8 +8,6 @@
 #include "CC_Drone.h"
 #include "CC_GameInstance.generated.h"
 
-
-
 UCLASS()
 class HORRORGAME_API UCC_GameInstance : public UGameInstance
 {

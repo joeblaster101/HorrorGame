@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/MovementComponent.h"
+#include "GameFramework/PawnMovementComponent.h"
 #include "CC_Drone.generated.h"
 
 
@@ -42,9 +44,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMeshComponent;
 
+	UPawnMovementComponent* PawnMovementComponent;
 
-
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -63,4 +65,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Escape(const FInputActionValue& Value);
 
+	UFUNCTION(BlueprintCallable)
+	void Escape2();
 };

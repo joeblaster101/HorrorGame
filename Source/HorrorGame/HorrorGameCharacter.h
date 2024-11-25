@@ -78,6 +78,7 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	UGameInstance* GameInstanceRef;
 
-
+	UFUNCTION(BlueprintCallable)
+	void ToDrone();
 	
 };

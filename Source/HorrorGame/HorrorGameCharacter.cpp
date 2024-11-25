@@ -125,6 +125,12 @@ FHitResult AHorrorGameCharacter::InteractLineTrace()
 	return Hit;
 }
 
+void AHorrorGameCharacter::ToDrone()
+{
+	AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
+	pcPlayerControllerRef->PossessDrone();
+}
+
 void AHorrorGameCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
