@@ -75,9 +75,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FHitResult InteractLineTrace();
 
-	UPROPERTY(BlueprintReadWrite)
-	UGameInstance* GameInstanceRef;
-
 	UFUNCTION(BlueprintCallable)
 	void ToDrone();
 	

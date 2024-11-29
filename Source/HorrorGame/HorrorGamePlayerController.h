@@ -32,4 +32,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void PossessPlayer();
 
+	UFUNCTION()
+	void GetInputs();
+
+
 };

@@ -28,7 +28,7 @@ ACC_Drone::ACC_Drone()
 	if (StaticMeshComponent)
 		StaticMeshComponent->SetupAttachment(CapsuleComponent);
 
-	//TODO FIX MOVEMENT COMONENET DOSEN@T ADD TO WORK AT ALL 
+	//TODO FIX MOVEMENT COMONENET DOSEN'T ADD TO WORK AT ALL 
 	PawnMovementComponent = CreateDefaultSubobject<UPawnMovementComponent>(TEXT("MovementComonent"));
 
 	PrimaryActorTick.bCanEverTick = true;
@@ -41,6 +41,8 @@ void ACC_Drone::BeginPlay()
 	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
 	GameInstance->DroneRef = this;
 
+
+
 }
 
 // Called every frame
@@ -49,7 +51,8 @@ void ACC_Drone::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if (!Controller)
 	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' controller no there"), *GetNameSafe(this));
+		//UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' controller no there"), *GetNameSafe(this));
+		
 	}
 }
 
@@ -97,7 +100,7 @@ void ACC_Drone::Move(const FInputActionValue& Value)
 
 	if (Controller != nullptr)
 	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("femboys"), *GetNameSafe(this));
+		//UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' move"), *GetNameSafe(this));
 		// add movement 
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
@@ -111,9 +114,56 @@ void ACC_Drone::Look(const FInputActionValue& Value)
 
 	if (Controller != nullptr)
 	{
+		//UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' look"), *GetNameSafe(this));
 		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
+
+FHitResult ACC_Drone::InteractLineTrace()
+{
+
+	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
+	RV_TraceParams.bTraceComplex = true;
+	RV_TraceParams.bReturnPhysicalMaterial = false;
+
+	FHitResult Hit(ForceInit);
+	FVector3d Start = this->GetActorLocation();
+	FVector3d End = Start + this->GetActorForwardVector() * 100000.0f;
+
+	GetWorld()->LineTraceSingleByChannel(
+		Hit,		//resultd
+		Start,	//start
+		End, //end
+		ECC_Pawn, //collision channel
+		RV_TraceParams
+	);
+
+	DrawDebugLine(
+		GetWorld(),
+		Start,
+		End,
+		FColor::Red,
+		true, // Persistent
+		10000.0f, // Duration
+		1.0f // Thickness
+	);
+	return Hit;
+}
+
+void ACC_Drone::Collect()
+{
+	FHitResult Hit = InteractLineTrace();
+	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
+
+	if (Hit.GetActor()->ActorHasTag("Battery"))
+	{
+		GameInstance->Power = GameInstance->Power + 20;
+	}
+
+
+
+}
+
 

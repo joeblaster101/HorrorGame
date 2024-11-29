@@ -14,9 +14,16 @@ class HORRORGAME_API UCC_GameInstance : public UGameInstance
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ACC_Drone* DroneRef;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	AHorrorGameCharacter* PlayerRef;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	AHorrorGamePlayerController* HorrorGameController;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Power;
+
 };

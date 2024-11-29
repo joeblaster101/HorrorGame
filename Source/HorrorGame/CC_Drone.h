@@ -35,6 +35,14 @@ protected:
 	UFUNCTION()
 	void Look(const FInputActionValue& Value);
 
+	UFUNCTION()
+	FHitResult InteractLineTrace();
+
+	UFUNCTION()
+	void Collect();
+
+
+
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* CapsuleComponent;
 

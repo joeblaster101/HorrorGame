@@ -24,7 +24,9 @@ ACC_Console::ACC_Console()
 void ACC_Console::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
+	GameInstance->Power = 80;
 }
 
 // Called every frame

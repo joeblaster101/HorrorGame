@@ -4,29 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include <Components/BoxComponent.h>
-#include "CC_GameInstance.h"
-#include "CC_Console.generated.h"
-
-
+#include "Components/SphereComponent.h"
+#include "CC_Pickup.generated.h"
 
 UCLASS()
-class HORRORGAME_API ACC_Console : public AActor
+class HORRORGAME_API ACC_Pickup : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ACC_Console();
+	ACC_Pickup();
 
 	UPROPERTY(VisibleAnywhere)
-	UBoxComponent* RootCollisionMesh = nullptr;
-
-	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* StaticMeshComponent;
-
-	UPROPERTY(BlueprintReadOnly)
-	UCC_GameInstance* GameInstance;
+	USphereComponent* ShpereComponent;
 
 protected:
 	// Called when the game starts or when spawned
@@ -35,5 +26,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+	void WhenPickedUp();
 
 };

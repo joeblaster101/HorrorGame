@@ -44,7 +44,7 @@ void AHorrorGameCharacter::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	if (!Controller)
 	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' controller no there"), *GetNameSafe(this));
+		//UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' controller no there"), *GetNameSafe(this));
 	}
 }
 
@@ -78,7 +78,6 @@ void AHorrorGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 void AHorrorGameCharacter::IsConsoleAndPosess(FHitResult Hit)
 {
-	UE_LOG(LogTemplateCharacter, Error, TEXT("front"), *GetNameSafe(this));
 	bool bDidHit = Hit.bBlockingHit;
 
 	if (bDidHit)
@@ -87,8 +86,8 @@ void AHorrorGameCharacter::IsConsoleAndPosess(FHitResult Hit)
 		{
 			if (Hit.GetActor()->ActorHasTag("console"))
 			{
-				AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
-				pcPlayerControllerRef->PossessDrone();
+				UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
+				GameInstance->HorrorGameController->Possess(this);
 			}
 		}
 	}
