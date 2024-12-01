@@ -14,6 +14,9 @@ ACC_Pickup::ACC_Pickup()
 	if (ShpereComponent)
 		SetRootComponent(ShpereComponent);
 
+	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComonent"));
+	if (StaticMeshComponent)
+		StaticMeshComponent->SetupAttachment(ShpereComponent);
 
 }
 

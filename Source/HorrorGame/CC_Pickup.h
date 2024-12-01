@@ -19,6 +19,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	USphereComponent* ShpereComponent;
 
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* StaticMeshComponent;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
