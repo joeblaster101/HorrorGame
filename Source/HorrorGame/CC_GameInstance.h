@@ -26,4 +26,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Power;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float BatteryCharge;
+
 };

@@ -26,6 +26,7 @@ class AHorrorGameCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 
+
 	/** Jump Input Action */
 	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	//UInputAction* JumpAction;
@@ -58,8 +59,6 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-	void Interacte(const FInputActionValue& Value);
-
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
@@ -71,9 +70,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void IsConsoleAndPosess(FHitResult Hit);
-
-	UFUNCTION(BlueprintCallable)
-	FHitResult InteractLineTrace();
 
 	UFUNCTION(BlueprintCallable)
 	void ToDrone();

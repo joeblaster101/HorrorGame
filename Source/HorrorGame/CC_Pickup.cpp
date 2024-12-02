@@ -3,6 +3,7 @@
 
 #include "CC_Pickup.h"
 #include "Components/SphereComponent.h"
+#include <String>
 
 // Sets default values
 ACC_Pickup::ACC_Pickup()
@@ -34,8 +35,4 @@ void ACC_Pickup::Tick(float DeltaTime)
 
 }
 
-void ACC_Pickup::WhenPickedUp()
-{
-	Destroy();
-}
 

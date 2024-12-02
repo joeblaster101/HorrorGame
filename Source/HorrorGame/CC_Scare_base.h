@@ -4,24 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/SphereComponent.h"
-#include <string>
-#include "CC_Pickup.generated.h"
+#include "CC_Scare_base.generated.h"
 
 UCLASS()
-class HORRORGAME_API ACC_Pickup : public AActor
+class HORRORGAME_API ACC_Scare_base : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ACC_Pickup();
-
-	UPROPERTY(VisibleAnywhere)
-	USphereComponent* ShpereComponent;
-
-	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* StaticMeshComponent;
+	ACC_Scare_base();
 
 protected:
 	// Called when the game starts or when spawned

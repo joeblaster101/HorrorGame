@@ -27,6 +27,7 @@ void ACC_Console::BeginPlay()
 
 	GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
 	GameInstance->Power = 80;
+	GameInstance->BatteryCharge = 20;
 }
 
 // Called every frame

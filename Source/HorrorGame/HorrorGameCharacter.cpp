@@ -67,9 +67,6 @@ void AHorrorGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AHorrorGameCharacter::Look);
 
-		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &AHorrorGameCharacter::Interacte);
-
-
 	}	
 	else
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' you fuck it no inputs you labotimite"), *GetNameSafe(this));
@@ -87,41 +84,10 @@ void AHorrorGameCharacter::IsConsoleAndPosess(FHitResult Hit)
 			if (Hit.GetActor()->ActorHasTag("console"))
 			{
 				UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
-				GameInstance->HorrorGameController->Possess(this);
+				GameInstance->HorrorGameController->Possess(GameInstance->DroneRef);
 			}
 		}
 	}
-}
-FHitResult AHorrorGameCharacter::InteractLineTrace()
-{
-
-	UE_LOG(LogTemplateCharacter, Error, TEXT("yippee"), *GetNameSafe(this));
-	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
-	RV_TraceParams.bTraceComplex = true;
-	RV_TraceParams.bReturnPhysicalMaterial = false;
-
-	FHitResult Hit(ForceInit);
-	FVector3d Start = GetFirstPersonCameraComponent()->GetComponentLocation();
-	FVector3d End = Start + GetFirstPersonCameraComponent()->GetForwardVector() * 100000.0f;
-	
-	GetWorld()->LineTraceSingleByChannel(
-		Hit,		//resultd
-		Start,	//start
-		End, //end
-		ECC_Pawn, //collision channel
-		RV_TraceParams
-	);
-
-	DrawDebugLine(
-		GetWorld() ,
-		Start,
-		End,
-		FColor::Red,
-		true, // Persistent
-		10000.0f, // Duration
-		1.0f // Thickness
-	);
-	return Hit;
 }
 
 void AHorrorGameCharacter::ToDrone()
@@ -156,8 +122,5 @@ void AHorrorGameCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void AHorrorGameCharacter::Interacte(const FInputActionValue& Value)
-{
 
-}
 

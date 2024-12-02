@@ -14,4 +14,7 @@ class HORRORGAME_API ACC_Pickup_Battery : public ACC_Pickup
 {
 	GENERATED_BODY()
 
+
+	UFUNCTION(BlueprintCallable)
+	void WhenPickedUp();
 };

@@ -6,10 +6,12 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
+#include "Components/BillboardComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
 #include "CC_GameInstance.h"
+#include "CC_Scare_Flashbang.h"
 
 // Sets default values
 ACC_Drone::ACC_Drone()
@@ -28,9 +30,21 @@ ACC_Drone::ACC_Drone()
 	if (StaticMeshComponent)
 		StaticMeshComponent->SetupAttachment(CapsuleComponent);
 
-	//TODO FIX MOVEMENT COMONENET DOSEN'T ADD TO WORK AT ALL 
-	PawnMovementComponent = CreateDefaultSubobject<UPawnMovementComponent>(TEXT("MovementComonent"));
+	FlashPoint = CreateDefaultSubobject<UBillboardComponent>(TEXT("flashpoint"));
+	if (FlashPoint)
+		FlashPoint->SetupAttachment(CapsuleComponent);
 
+	BoxFlashbang = CreateDefaultSubobject<UBoxComponent>(TEXT("boxflashbag"));
+	if (BoxFlashbang)
+		BoxFlashbang->SetupAttachment(CapsuleComponent);
+
+	flashbagMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("flashbagMesh"));
+	if (flashbagMesh)
+		flashbagMesh->SetupAttachment(CapsuleComponent);
+	 
+	Flashlight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Flashlight"));
+	if (Flashlight)
+		Flashlight->SetupAttachment(CapsuleComponent);
 	PrimaryActorTick.bCanEverTick = true;
 }
 
@@ -43,6 +57,12 @@ void ACC_Drone::BeginPlay()
 
 
 
+}
+
+void ACC_Drone::DoScare(FHitResult hit)
+{
+	ACC_Scare_Flashbang* flash = Cast<ACC_Scare_Flashbang>(hit.GetActor());
+	flash->DoFlashBange();
 }
 
 // Called every frame
@@ -83,14 +103,14 @@ void ACC_Drone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ACC_Drone::Escape(const FInputActionValue& Value)
 {
-	AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
-	pcPlayerControllerRef->PossessPlayer();
+	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
+	GameInstance->HorrorGameController->Possess(GameInstance->PlayerRef);;
 }
 
 void ACC_Drone::Escape2()
 {
-	AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
-	pcPlayerControllerRef->PossessPlayer();
+	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
+	GameInstance->HorrorGameController->Possess(GameInstance->PlayerRef);
 }
 
 void ACC_Drone::Move(const FInputActionValue& Value)
@@ -159,7 +179,7 @@ void ACC_Drone::Collect()
 
 	if (Hit.GetActor()->ActorHasTag("Battery"))
 	{
-		GameInstance->Power = GameInstance->Power + 20;
+		GameInstance->Power = GameInstance->Power + GameInstance->BatteryCharge;
 	}
 
 
