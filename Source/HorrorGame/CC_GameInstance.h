@@ -29,4 +29,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float BatteryCharge;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int objectuve;
+
 };

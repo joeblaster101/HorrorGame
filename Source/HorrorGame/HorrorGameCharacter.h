@@ -27,6 +27,8 @@ class AHorrorGameCharacter : public ACharacter
 	UCameraComponent* FirstPersonCameraComponent;
 
 
+
+
 	/** Jump Input Action */
 	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	//UInputAction* JumpAction;
@@ -51,6 +53,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* InteractAction;
+
+
 
 protected:
 	/** Called for movement input */
