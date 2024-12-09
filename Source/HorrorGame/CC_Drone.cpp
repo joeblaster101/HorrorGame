@@ -63,6 +63,7 @@ void ACC_Drone::DoScare(FHitResult hit)
 {
 	ACC_Scare_Flashbang* flash = Cast<ACC_Scare_Flashbang>(hit.GetActor());
 	flash->DoFlashBange();
+	flash->Destroy();
 }
 
 // Called every frame
