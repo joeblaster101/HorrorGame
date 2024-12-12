@@ -23,7 +23,13 @@ public:
 	UBoxComponent* RootCollisionMesh = nullptr;
 
 	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* StaticMeshComponent;
+	UStaticMeshComponent* Console;
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* Screen;
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* lights;
 
 	UPROPERTY(BlueprintReadOnly)
 	UCC_GameInstance* GameInstance;

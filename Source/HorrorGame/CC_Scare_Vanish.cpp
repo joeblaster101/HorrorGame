@@ -13,4 +13,7 @@ ACC_Scare_Vanish::ACC_Scare_Vanish()
 	if (StaticMeshComponent)
 		StaticMeshComponent->SetupAttachment(ShpereComponent);
 
+
+
+
 }

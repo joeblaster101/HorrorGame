@@ -22,6 +22,5 @@ void ACC_Scare_base::BeginPlay()
 void ACC_Scare_base::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

@@ -24,4 +24,5 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	USphereComponent* ShpereComponent;
+
 };

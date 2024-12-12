@@ -14,9 +14,17 @@ ACC_Console::ACC_Console()
 	if (RootCollisionMesh)
 		SetRootComponent(RootCollisionMesh);
 	
-	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComonent"));
-	if (StaticMeshComponent)
-		StaticMeshComponent->SetupAttachment(RootCollisionMesh);
+	Console = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Console"));
+	if (Console)
+		Console->SetupAttachment(RootCollisionMesh);
+
+	Screen = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Screen"));
+	if (Screen)
+		Screen->SetupAttachment(RootCollisionMesh);
+
+	lights = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("lights"));
+	if (lights)
+		lights->SetupAttachment(RootCollisionMesh);
 
 }
 
