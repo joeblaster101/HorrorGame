@@ -79,14 +79,19 @@ void AHorrorGameCharacter::IsConsoleAndPosess(FHitResult Hit)
 
 	if (bDidHit)
 	{
-		if (Hit.GetActor()->IsA(ACC_Console::StaticClass()))
+		if (IsValid(Hit.GetActor()))
 		{
-			if (Hit.GetActor()->ActorHasTag("console"))
+			if (Hit.GetActor()->IsA(ACC_Console::StaticClass()))
 			{
-				UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
-				GameInstance->HorrorGameController->Possess(GameInstance->DroneRef);
+				if (Hit.GetActor()->ActorHasTag("console"))
+				{
+					UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
+					GameInstance->HorrorGameController->Possess(GameInstance->DroneRef);
+					
+				}
 			}
 		}
+
 	}
 }
 
