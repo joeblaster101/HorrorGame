@@ -172,18 +172,14 @@ FHitResult ACC_Drone::InteractLineTrace()
 	return Hit;
 }
 
-void ACC_Drone::Collect()
+void ACC_Drone::Collect(FHitResult Hit)
 {
-	FHitResult Hit = InteractLineTrace();
 	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
 
 	if (Hit.GetActor()->ActorHasTag("Battery"))
 	{
 		GameInstance->Power = GameInstance->Power + GameInstance->BatteryCharge;
 	}
-
-
-
 }
 
 

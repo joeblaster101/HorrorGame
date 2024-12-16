@@ -43,8 +43,8 @@ protected:
 	UFUNCTION()
 	FHitResult InteractLineTrace();
 
-	UFUNCTION()
-	void Collect();
+	UFUNCTION(BlueprintCallable)
+	void Collect(FHitResult Hit);
 
 
 

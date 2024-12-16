@@ -32,4 +32,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int objectuve;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	bool Debug;
+
+	UFUNCTION()
+	virtual void BeginPlay();
+
 };
