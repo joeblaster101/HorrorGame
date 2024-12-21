@@ -104,7 +104,7 @@ void ACC_Drone::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ACC_Drone::Escape(const FInputActionValue& Value)
 {
 	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
-	GameInstance->HorrorGameController->Possess(GameInstance->PlayerRef);;
+	GameInstance->HorrorGameController->Possess(GameInstance->PlayerRef);
 }
 
 void ACC_Drone::Escape2()
@@ -179,6 +179,7 @@ void ACC_Drone::Collect(FHitResult Hit)
 	if (Hit.GetActor()->ActorHasTag("Battery"))
 	{
 		GameInstance->Power = GameInstance->Power + GameInstance->BatteryCharge;
+		Hit.GetActor()->Destroy();
 	}
 }
 

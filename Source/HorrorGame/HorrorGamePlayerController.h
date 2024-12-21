@@ -26,11 +26,11 @@ protected:
 
 public:
 
-	UFUNCTION(BlueprintCallable)
-	void PossessDrone();
+	///UFUNCTION(BlueprintCallable)
+	//void PossessDrone();
 
-	UFUNCTION(BlueprintCallable)
-	void PossessPlayer();
+	//UFUNCTION(BlueprintCallable)
+	//void PossessPlayer();
 
 	UFUNCTION()
 	void GetInputs();
