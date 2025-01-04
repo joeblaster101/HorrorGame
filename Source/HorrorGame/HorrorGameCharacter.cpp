@@ -98,7 +98,7 @@ void AHorrorGameCharacter::IsConsoleAndPosess(FHitResult Hit)
 void AHorrorGameCharacter::ToDrone()
 {
 	AHorrorGamePlayerController* pcPlayerControllerRef = Cast<AHorrorGamePlayerController>(Controller);
-	pcPlayerControllerRef->PossessDrone();
+	//pcPlayerControllerRef->PossessDrone();
 }
 
 void AHorrorGameCharacter::Move(const FInputActionValue& Value)
