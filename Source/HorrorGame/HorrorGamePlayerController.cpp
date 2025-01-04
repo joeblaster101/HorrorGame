@@ -20,22 +20,22 @@ void AHorrorGamePlayerController::BeginPlay()
 
 }
 
-void AHorrorGamePlayerController::PossessDrone()
+/*void AHorrorGamePlayerController::PossessDrone()
 {
 	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
 	this->UnPossess();
 	this->Possess(GameInstance->DroneRef);
 	//GetInputs();
 
-}
+}*/
 
-void AHorrorGamePlayerController::PossessPlayer()
+/*void AHorrorGamePlayerController::PossessPlayer()
 {
 	UCC_GameInstance* GameInstance = Cast<UCC_GameInstance>(GetGameInstance());
 	this->UnPossess();
 	this->Possess(GameInstance->PlayerRef);
 	//GetInputs();
-}
+}*/
 
 void AHorrorGamePlayerController::GetInputs()
 {
